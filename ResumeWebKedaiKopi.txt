@@ -1,4 +1,6 @@
-https://www.youtube.com/watch?v=-O3YBgWgBdc&list=PLFIM0718LjIWaNi4oDd?N49FTlznrWU9w2&index=3
+https://www.youtube.com/watch?v=Na4330FzthI&list=PLFIM0718LjIWtASeDQ5vxbNsdqfSjihCg&index=4 : 23:31
+
+https://hidayatfahmi.github.io/Website-Kedai-Kopi/
 
 ================= Bagian 1
 1. :root{
@@ -30,6 +32,8 @@ https://HidayatFahmi.github.io/Website-Kedai-Kopi
 
 ================= Bagian 3 CSS Masking
 - dokumentasi : https://developer.mozilla.org/en-US/docs/Web/CSS/mask
+- web gambar svg : https://svgsilh.com/search/coffe%20beans-1.html#google_vignette
+
 - untuk masking warna leih gelap menjadi transparan dan warna lebih terang menjadi maskingnya
 - code :
 * mask-image: linear-gradient(rgba(0,0,0,1) 85%,rgba(0,0,0,0));
@@ -39,4 +43,18 @@ https://HidayatFahmi.github.io/Website-Kedai-Kopi
     mask-size: 50%;
     mask-position: center;
     mask-repeat: no-repeat;
+}
+
+================= Bagian 4, fitur keranjang belanja
+- menyimpan data dengan alpine js : https://alpinejs.dev/
+- <template x-for="(item, index) in items" x-key="index">
+- penggunaan gambar svg feather icon dengan cara save fetaher-sprite dan copas kode pada web serta ganti
+nama icon yang ingin digunakan pada kode berikut : <use href="Media/feather-sprite.svg#shopping-cart" />
+- Intl.NumberFormat
+* const rupiah = (number) => {
+    return new Intl.NumberFormat('id-ID',{
+        style : 'currency',
+        currency : 'IDR',
+        minimumFractionDigits:0,
+    }).format(number);
 }
