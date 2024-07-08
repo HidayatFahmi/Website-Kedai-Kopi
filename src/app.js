@@ -8,7 +8,66 @@ document.addEventListener('alpine:init',() => {
             {id : 5, name : 'Sumatera Mandheling', img : '5.jpg', price : 40000},
         ]
     }));
+
+    Alpine.store('cart', {
+        items : [],
+        total: 0,
+        quantity : 0,
+        add(newItem){
+            // cek apkah ada barang yang sama di cart
+            const cartItem = this.items.find((item) => item.id == newItem.id);
+            if(!cartItem){
+                this.items.push({...newItem, quantity:1, total: newItem.price});
+                this.total += newItem.price;
+                this.quantity++;  
+            }else{
+                // jika brang sudah ada dengan yg ada di cart
+                this.items = this.items.map((item) => {
+                    // jika barang berbeda
+                    if(item.id!== newItem.id){
+                        return item;
+                    }
+                    else{
+                        // jika barang sudah ada, tambah quantity dan total price
+                        item.quantity++;
+                        item.total = item.price * item.quantity;
+                        this.quantity++;
+                        this.total += item.price;
+                        return item;
+                    }
+                })
+
+            }
+
+        },
+        remove(id){
+            // ambil item yang di remove berdasarkan id
+            const cartItem = this.items.find((item) => item.id === id);
+
+            // jika item lebih dari 1
+            if(cartItem.quantity > 1){
+                // telusuri satu persatu
+                this.items = this.items.map((item) => {
+                    // jika bukan barang yang di klik
+                    if(item.id !== id){
+                        return item;
+                    }else{
+                        item.quantity--;
+                        item.total = item.price * item.quantity;
+                        this.quantity--;
+                        this.total -= item.price;
+                        return item;
+                    }
+                })
+            }else if(cartItem.quantity === 1){
+                this.items = this.items.filter((item) => item.id != id);
+                this.quantity--;
+                this.total -= cartItem.price;
+            }
+        }
+    })
 });
+
 
 // konversi ke Rupiah
 const rupiah = (number) => {
